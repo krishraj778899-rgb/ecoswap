@@ -14,7 +14,7 @@ The project is now configured as a Docker deployment. The file is named exactly 
 Create the service as **Web Service → Docker**.
 
 Environment variable:
-- `DATABASE_URL` = Render PostgreSQL **Internal Database URL**
+- `DATABASE_URL` = Neon PostgreSQL **Internal Database URL**
 - Optional: `APP_DEBUG=1` temporarily while testing. Remove/disable it after testing.
 
 The Dockerfile automatically listens on Render's `$PORT`.
