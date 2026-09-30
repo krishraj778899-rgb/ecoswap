@@ -122,7 +122,7 @@ try {
 
         if (!empty($item["image"])) {
 
-            $item["image"] = "../uploads/" . $item["image"];
+            $item["image"] = "/backend/uploads/" . $item["image"];
 
         } else {
 
