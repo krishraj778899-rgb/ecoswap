@@ -1,251 +1,46 @@
 <?php
-
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
-    http_response_code(200);
-    exit;
-}
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-
-    http_response_code(405);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Only POST requests are allowed."
-    ]);
-
-    exit;
-}
-
-require_once "../config/database.php";
-
-session_start();
-
-
-/* =========================================
-   CHECK LOGIN
-========================================= */
-
-if (!isset($_SESSION["user_id"])) {
-
-    http_response_code(401);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Please login before sending a swap request."
-    ]);
-
-    exit;
-}
-
-$requesterId = (int) $_SESSION["user_id"];
-
-
-/* =========================================
-   GET REQUEST DATA
-========================================= */
-
-$data = json_decode(
-    file_get_contents("php://input"),
-    true
-);
-
-$itemId = (int) ($data["item_id"] ?? 0);
-$message = trim($data["message"] ?? "");
-
-
-/* =========================================
-   VALIDATE ITEM ID
-========================================= */
-
-if ($itemId <= 0) {
-
-    http_response_code(400);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Invalid item ID."
-    ]);
-
-    exit;
-}
-
-
-/* =========================================
-   GET ITEM + OWNER
-========================================= */
-
+require_once __DIR__ . '/common.php';
 try {
+    $requesterId = require_user();
+    $pdo = db();
+    $data = json_input();
+    $itemId = (int)($data['item_id'] ?? 0);
+    $message = trim((string)($data['message'] ?? ''));
+    if ($itemId <= 0) json_response(false, 'Invalid item.', [], 400);
 
-    $stmt = $pdo->prepare("
-        SELECT
-            id,
-            user_id,
-            name,
-            status
-        FROM items
-        WHERE id = ?
-        LIMIT 1
-    ");
-
+    $stmt = $pdo->prepare('SELECT id,user_id,status FROM items WHERE id=? LIMIT 1');
     $stmt->execute([$itemId]);
-
     $item = $stmt->fetch();
+    if (!$item) json_response(false, 'Item not found.', [], 404);
+    $ownerId = (int)$item['user_id'];
+    if ($ownerId === $requesterId) json_response(false, 'You cannot request a swap for your own item.', [], 400);
+    if ($item['status'] !== 'available') json_response(false, 'This item is no longer available.', [], 409);
 
-
-    /* =========================================
-       ITEM NOT FOUND
-    ========================================= */
-
-    if (!$item) {
-
-        http_response_code(404);
-
-        echo json_encode([
-            "success" => false,
-            "message" => "Item not found."
-        ]);
-
-        exit;
+    $pdo->beginTransaction();
+    $check = $pdo->prepare('SELECT id FROM conversations WHERE item_id=? AND requester_id=? LIMIT 1');
+    $check->execute([$itemId, $requesterId]);
+    $conversationId = $check->fetchColumn();
+    if (!$conversationId) {
+        $c = $pdo->prepare('INSERT INTO conversations (item_id,owner_id,requester_id) VALUES (?,?,?) RETURNING id');
+        $c->execute([$itemId,$ownerId,$requesterId]);
+        $conversationId = (int)$c->fetchColumn();
+    } else {
+        $conversationId = (int)$conversationId;
+        $pdo->prepare('UPDATE conversations SET status=\'open\',updated_at=CURRENT_TIMESTAMP WHERE id=?')->execute([$conversationId]);
     }
 
+    $r = $pdo->prepare('INSERT INTO swap_requests (item_id,requester_id,owner_id,message) VALUES (?,?,?,?) RETURNING id');
+    $r->execute([$itemId,$requesterId,$ownerId,$message]);
+    $requestId = (int)$r->fetchColumn();
 
-    $ownerId = (int) $item["user_id"];
-
-
-    /* =========================================
-       PREVENT SELF REQUEST
-    ========================================= */
-
-    if ($ownerId === $requesterId) {
-
-        http_response_code(400);
-
-        echo json_encode([
-            "success" => false,
-            "message" => "You cannot request your own item."
-        ]);
-
-        exit;
+    if ($message !== '') {
+        $m = $pdo->prepare('INSERT INTO messages (conversation_id,sender_id,body) VALUES (?,?,?)');
+        $m->execute([$conversationId,$requesterId,$message]);
     }
-
-
-    /* =========================================
-       CHECK ITEM STATUS
-    ========================================= */
-
-    if ($item["status"] !== "available") {
-
-        http_response_code(400);
-
-        echo json_encode([
-            "success" => false,
-            "message" => "This item is no longer available."
-        ]);
-
-        exit;
-    }
-
-
-    /* =========================================
-       CHECK DUPLICATE REQUEST
-    ========================================= */
-
-    $stmt = $pdo->prepare("
-        SELECT id
-        FROM swap_requests
-        WHERE item_id = ?
-        AND requester_id = ?
-        AND status = 'pending'
-        LIMIT 1
-    ");
-
-    $stmt->execute([
-        $itemId,
-        $requesterId
-    ]);
-
-    $existingRequest = $stmt->fetch();
-
-
-    if ($existingRequest) {
-
-        http_response_code(409);
-
-        echo json_encode([
-            "success" => false,
-            "message" => "You already have a pending request for this item."
-        ]);
-
-        exit;
-    }
-
-
-    /* =========================================
-       CREATE SWAP REQUEST
-    ========================================= */
-
-    $stmt = $pdo->prepare("
-        INSERT INTO swap_requests
-        (
-            item_id,
-            requester_id,
-            owner_id,
-            message,
-            status
-        )
-        VALUES
-        (
-            ?,
-            ?,
-            ?,
-            ?,
-            'pending'
-        )
-    ");
-
-    $stmt->execute([
-        $itemId,
-        $requesterId,
-        $ownerId,
-        $message
-    ]);
-
-
-    $requestId = $pdo->lastInsertId();
-
-
-    /* =========================================
-       RESPONSE
-    ========================================= */
-
-    http_response_code(201);
-
-    echo json_encode([
-        "success" => true,
-        "message" => "Swap request sent successfully.",
-        "request" => [
-            "id" => (int) $requestId,
-            "item_id" => $itemId,
-            "item_name" => $item["name"],
-            "status" => "pending"
-        ]
-    ]);
-
-} catch (PDOException $e) {
-
-    http_response_code(500);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Unable to send swap request.",
-        "error" => $e->getMessage()
-    ]);
+    $pdo->commit();
+    json_response(true, 'Swap chat opened.', ['conversation_id' => $conversationId, 'request_id' => $requestId]);
+} catch (Throwable $e) {
+    if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) $pdo->rollBack();
+    error_log('swap-request.php: ' . $e->getMessage());
+    json_response(false, 'Unable to open swap chat.', [], 500);
 }
-
-?>

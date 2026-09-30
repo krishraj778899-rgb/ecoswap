@@ -1,159 +1,25 @@
 <?php
-
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
-    http_response_code(200);
-    exit;
-}
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(405);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Only POST requests are allowed."
-    ]);
-
-    exit;
-}
-
-require_once "../config/database.php";
-
-$data = json_decode(file_get_contents("php://input"), true);
-
-$name = trim($data["name"] ?? "");
-$email = trim($data["email"] ?? "");
-$password = $data["password"] ?? "";
-
-
-/* =========================================
-   VALIDATION
-========================================= */
-
-if ($name === "" || $email === "" || $password === "") {
-
-    http_response_code(400);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "All fields are required."
-    ]);
-
-    exit;
-}
-
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-    http_response_code(400);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Please enter a valid email address."
-    ]);
-
-    exit;
-}
-
-
-if (strlen($password) < 6) {
-
-    http_response_code(400);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Password must be at least 6 characters."
-    ]);
-
-    exit;
-}
-
-
-/* =========================================
-   CHECK EXISTING USER
-========================================= */
-
+require_once __DIR__ . '/common.php';
 try {
+    $pdo = db();
+    $data = json_input();
+    $name = trim((string)($data['name'] ?? ''));
+    $email = strtolower(trim((string)($data['email'] ?? '')));
+    $password = (string)($data['password'] ?? '');
 
-    $stmt = $pdo->prepare(
-        "SELECT id FROM users WHERE email = ? LIMIT 1"
-    );
+    if ($name === '' || $email === '' || $password === '') json_response(false, 'Please fill all fields.', [], 400);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) json_response(false, 'Enter a valid email address.', [], 400);
+    if (strlen($password) < 6) json_response(false, 'Password must be at least 6 characters.', [], 400);
 
-    $stmt->execute([$email]);
+    $check = $pdo->prepare('SELECT id FROM users WHERE LOWER(email) = LOWER(?) LIMIT 1');
+    $check->execute([$email]);
+    if ($check->fetch()) json_response(false, 'An account with this email already exists.', [], 409);
 
-    $existingUser = $stmt->fetch();
-
-    if ($existingUser) {
-
-        http_response_code(409);
-
-        echo json_encode([
-            "success" => false,
-            "message" => "An account with this email already exists."
-        ]);
-
-        exit;
-    }
-
-
-    /* =========================================
-       HASH PASSWORD
-    ========================================= */
-
-    $hashedPassword = password_hash(
-        $password,
-        PASSWORD_DEFAULT
-    );
-
-
-    /* =========================================
-       INSERT USER
-    ========================================= */
-
-    $stmt = $pdo->prepare(
-        "INSERT INTO users (name, email, password)
-         VALUES (?, ?, ?)
-         RETURNING id"
-    );
-
-    $stmt->execute([
-        $name,
-        $email,
-        $hashedPassword
-    ]);
-
-    $userId = $stmt->fetchColumn();
-
-
-    /* =========================================
-       RESPONSE
-    ========================================= */
-
-    http_response_code(201);
-
-    echo json_encode([
-        "success" => true,
-        "message" => "Registration successful.",
-        "user" => [
-            "id" => (int)$userId,
-            "name" => $name,
-            "email" => $email
-        ]
-    ]);
-
-} catch (PDOException $e) {
-
-    http_response_code(500);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Registration failed.",
-        "error" => $e->getMessage()
-    ]);
+    $stmt = $pdo->prepare('INSERT INTO users (name,email,password) VALUES (?,?,?) RETURNING id,name,email,created_at');
+    $stmt->execute([$name, $email, password_hash($password, PASSWORD_DEFAULT)]);
+    $user = $stmt->fetch();
+    json_response(true, 'Account created successfully.', ['user' => $user], 201);
+} catch (Throwable $e) {
+    error_log('register.php: ' . $e->getMessage());
+    json_response(false, 'Registration failed. Please check the database connection.', [], 500);
 }
-
-?>

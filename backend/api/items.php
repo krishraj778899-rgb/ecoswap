@@ -1,157 +1,24 @@
 <?php
-
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
-    http_response_code(200);
-    exit;
-}
-
-if ($_SERVER["REQUEST_METHOD"] !== "GET") {
-
-    http_response_code(405);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Only GET requests are allowed."
-    ]);
-
-    exit;
-}
-
-require_once "../config/database.php";
-
-
-/* =========================================
-   GET SEARCH & CATEGORY
-========================================= */
-
-$search = trim($_GET["search"] ?? "");
-$category = trim($_GET["category"] ?? "");
-
-
-/* =========================================
-   BASE QUERY
-========================================= */
-
-$sql = "
-    SELECT
-        items.id,
-        items.name,
-        items.category,
-        items.item_condition,
-        items.description,
-        items.image,
-        items.status,
-        items.created_at,
-        users.id AS owner_id,
-        users.name AS owner_name
-    FROM items
-    INNER JOIN users
-        ON items.user_id = users.id
-    WHERE items.status = 'available'
-";
-
-$params = [];
-
-
-/* =========================================
-   SEARCH FILTER
-========================================= */
-
-if ($search !== "") {
-
-    $sql .= "
-        AND (
-            items.name LIKE ?
-            OR items.description LIKE ?
-            OR items.category LIKE ?
-        )
-    ";
-
-    $searchValue = "%" . $search . "%";
-
-    $params[] = $searchValue;
-    $params[] = $searchValue;
-    $params[] = $searchValue;
-}
-
-
-/* =========================================
-   CATEGORY FILTER
-========================================= */
-
-if ($category !== "" && strtolower($category) !== "all") {
-
-    $sql .= " AND items.category = ? ";
-
-    $params[] = $category;
-}
-
-
-/* =========================================
-   SORTING
-========================================= */
-
-$sql .= "
-    ORDER BY items.created_at DESC
-";
-
-
-/* =========================================
-   EXECUTE QUERY
-========================================= */
-
+require_once __DIR__ . '/common.php';
 try {
+    $pdo = db();
+    $search = trim((string)($_GET['search'] ?? ''));
+    $category = trim((string)($_GET['category'] ?? ''));
 
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute($params);
-
-    $items = $stmt->fetchAll();
-
-
-    /* =========================================
-       IMAGE URL
-    ========================================= */
-
-    foreach ($items as &$item) {
-
-        if (!empty($item["image"])) {
-
-            $item["image"] = "/backend/uploads/" . $item["image"];
-
-        } else {
-
-            $item["image"] = null;
-        }
+    $sql = "SELECT i.id,i.user_id,i.name,i.category,i.item_condition,i.description,i.image,i.image_data,i.image_mime,i.phone,i.location,i.status,i.created_at,u.name AS owner_name
+            FROM items i JOIN users u ON u.id=i.user_id WHERE i.status='available'";
+    $params = [];
+    if ($search !== '') {
+        $sql .= " AND (i.name ILIKE ? OR COALESCE(i.description,'') ILIKE ? OR COALESCE(i.location,'') ILIKE ?)";
+        $like = '%' . $search . '%'; $params[] = $like; $params[] = $like; $params[] = $like;
     }
+    if ($category !== '' && strtolower($category) !== 'all') { $sql .= ' AND i.category = ?'; $params[] = $category; }
+    $sql .= ' ORDER BY i.created_at DESC, i.id DESC';
 
-    unset($item);
-
-
-    /* =========================================
-       RESPONSE
-    ========================================= */
-
-    echo json_encode([
-        "success" => true,
-        "count" => count($items),
-        "items" => $items
-    ]);
-
-} catch (PDOException $e) {
-
-    http_response_code(500);
-
-    echo json_encode([
-        "success" => false,
-        "message" => "Unable to fetch items.",
-        "error" => $e->getMessage()
-    ]);
+    $stmt = $pdo->prepare($sql); $stmt->execute($params);
+    $items = array_map('serialize_item', $stmt->fetchAll());
+    json_response(true, '', ['items' => $items]);
+} catch (Throwable $e) {
+    error_log('items.php: ' . $e->getMessage());
+    json_response(false, 'Unable to load items.', [], 500);
 }
-
-?>
