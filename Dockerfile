@@ -1,6 +1,5 @@
 FROM php:8.2-cli-bookworm
 
-# Install PostgreSQL client development files first; pdo_pgsql needs libpq headers.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libpq-dev \
     && docker-php-ext-install pdo_pgsql \
