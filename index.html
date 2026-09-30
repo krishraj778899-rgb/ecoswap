@@ -5,1595 +5,1508 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AtulRide - Vehicle Rental</title>
+    <title>EcoSwap - Give Things a Second Life</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+    <meta name="description"
+        content="EcoSwap is a sustainable community platform where people can exchange, reuse and give items a second life.">
 
-        html {
-            scroll-behavior: smooth;
-        }
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        body {
-            background: #ffffff;
-            color: #111827;
-            line-height: 1.6;
-        }
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-        /* ================= NAVBAR ================= */
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-        nav {
-            width: 100%;
-            background: #111827;
-            padding: 15px 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            color: white;
-            font-size: 28px;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: #3b82f6;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #60a5fa;
-        }
-
-        .profile-btn {
-            background: #2563eb;
-            padding: 8px 16px;
-            border-radius: 8px;
-        }
-
-        .profile-btn:hover {
-            background: #1d4ed8;
-            color: white !important;
-        }
-
-
-        /* ================= HERO ================= */
-
-        .hero {
-            min-height: 650px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-
-            padding: 80px 20px;
-
-            background:
-                linear-gradient(
-                    rgba(15, 23, 42, 0.85),
-                    rgba(15, 23, 42, 0.85)
-                ),
-                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=80");
-
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-content {
-            max-width: 850px;
-            color: white;
-        }
-
-        .hero-content span {
-            color: #60a5fa;
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .hero-content h1 {
-            font-size: 60px;
-            line-height: 1.1;
-            margin: 18px 0;
-        }
-
-        .hero-content p {
-            max-width: 700px;
-            margin: auto;
-
-            font-size: 18px;
-            color: #d1d5db;
-        }
-
-        .hero-buttons {
-            margin-top: 30px;
-
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-
-            flex-wrap: wrap;
-        }
-
-        .hero-btn {
-            display: inline-block;
-
-            padding: 14px 25px;
-
-            border-radius: 10px;
-
-            text-decoration: none;
-
-            font-weight: 700;
-
-            transition: 0.3s;
-        }
-
-        .primary-btn {
-            background: #2563eb;
-            color: white;
-        }
-
-        .primary-btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-        .secondary-btn {
-            border: 1px solid white;
-            color: white;
-        }
-
-        .secondary-btn:hover {
-            background: white;
-            color: #111827;
-        }
-
-
-        /* ================= COMMON ================= */
-
-        section {
-            padding: 80px 6%;
-        }
-
-        .section-heading {
-            text-align: center;
-
-            max-width: 750px;
-
-            margin: 0 auto 45px;
-        }
-
-        .section-heading span {
-            color: #2563eb;
-            font-weight: 700;
-        }
-
-        .section-heading h2 {
-            font-size: 38px;
-            margin: 10px 0;
-        }
-
-        .section-heading p {
-            color: #6b7280;
-        }
-
-
-        /* ================= MAIN LOCATION ================= */
-
-        .main-location {
-            background: #f8fafc;
-        }
-
-        .main-location-card {
-            max-width: 900px;
-
-            margin: auto;
-
-            padding: 40px;
-
-            border-radius: 22px;
-
-            background: white;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 35px;
-
-            box-shadow:
-                0 12px 35px rgba(0, 0, 0, 0.08);
-
-            border: 1px solid #e5e7eb;
-        }
-
-        .location-icon {
-            min-width: 100px;
-
-            height: 100px;
-
-            border-radius: 50%;
-
-            background: #eff6ff;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 45px;
-        }
-
-        .location-info h3 {
-            font-size: 30px;
-
-            margin-bottom: 12px;
-        }
-
-        .location-info p {
-            color: #4b5563;
-
-            margin: 8px 0;
-        }
-
-        .map-btn {
-            display: inline-block;
-
-            margin-top: 15px;
-
-            padding: 12px 20px;
-
-            background: #2563eb;
-
-            color: white;
-
-            text-decoration: none;
-
-            border-radius: 9px;
-
-            font-weight: 700;
-
-            transition: 0.3s;
-        }
-
-        .map-btn:hover {
-            background: #1d4ed8;
-
-            transform: translateY(-2px);
-        }
-
-
-        /* ================= SERVICE LOCATIONS ================= */
-
-        .service-locations {
-            background: white;
-        }
-
-        .location-grid {
-            max-width: 1200px;
-
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
-            gap: 20px;
-        }
-
-        .location-card {
-            background: #f8fafc;
-
-            padding: 30px 20px;
-
-            border-radius: 18px;
-
-            text-align: center;
-
-            border: 1px solid #e5e7eb;
-
-            transition: 0.3s;
-        }
-
-        .location-card:hover {
-            transform: translateY(-7px);
-
-            box-shadow:
-                0 12px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-icon {
-            font-size: 35px;
-
-            margin-bottom: 12px;
-        }
-
-        .location-card h3 {
-            margin-bottom: 7px;
-        }
-
-        .location-card p {
-            color: #6b7280;
-
-            margin-bottom: 18px;
-        }
-
-        .location-card button {
-            border: none;
-
-            padding: 10px 22px;
-
-            border-radius: 8px;
-
-            background: #2563eb;
-
-            color: white;
-
-            cursor: pointer;
-
-            font-weight: 700;
-
-            transition: 0.3s;
-        }
-
-        .location-card button:hover {
-            background: #1d4ed8;
-        }
-
-
-        /* ================= WHY CHOOSE ================= */
-
-        .why-section {
-            background: #f8fafc;
-        }
-
-        .features {
-            max-width: 1100px;
-
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 25px;
-        }
-
-        .feature-card {
-            background: white;
-
-            padding: 30px 20px;
-
-            text-align: center;
-
-            border-radius: 18px;
-
-            border: 1px solid #e5e7eb;
-
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-
-            box-shadow:
-                0 10px 25px rgba(0, 0, 0, 0.07);
-        }
-
-        .feature-icon {
-            font-size: 40px;
-
-            margin-bottom: 15px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            color: #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* ================= HOW IT WORKS ================= */
-
-        .steps {
-            max-width: 1000px;
-
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 25px;
-        }
-
-        .step {
-            text-align: center;
-        }
-
-        .step-number {
-            width: 55px;
-
-            height: 55px;
-
-            background: #2563eb;
-
-            color: white;
-
-            border-radius: 50%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            margin: 0 auto 15px;
-
-            font-size: 20px;
-
-            font-weight: 700;
-        }
-
-        .step p {
-            color: #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* ================= CATEGORIES ================= */
-
-        .categories {
-            background: #f8fafc;
-        }
-
-        .category-grid {
-            max-width: 1000px;
-
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 25px;
-        }
-
-        .category-card {
-            min-height: 250px;
-
-            border-radius: 20px;
-
-            padding: 30px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: flex-end;
-
-            color: white;
-
-            background-size: cover;
-
-            background-position: center;
-
-            overflow: hidden;
-
-            position: relative;
-
-            text-decoration: none;
-
-            transition: 0.3s;
-        }
-
-        .category-card:hover {
-            transform: translateY(-8px);
-
-            box-shadow:
-                0 15px 35px rgba(0, 0, 0, 0.20);
-        }
-
-        .category-card::before {
-            content: "";
-
-            position: absolute;
-
-            inset: 0;
-
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(0, 0, 0, 0.85)
-                );
-        }
-
-        .category-card div {
-            position: relative;
-
-            z-index: 2;
-        }
-
-        .category-card h2 {
-            margin-bottom: 8px;
-        }
-
-        .category-card p {
-            margin-bottom: 15px;
-
-            color: #e5e7eb;
-        }
-
-        .category-btn {
-            display: inline-block;
-
-            padding: 9px 16px;
-
-            background: #2563eb;
-
-            border-radius: 8px;
-
-            color: white;
-
-            font-weight: 700;
-
-            font-size: 14px;
-        }
-
-        .cars {
-            background-image:
-                url("https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1000&q=80");
-        }
-
-        .suv {
-            background-image:
-                url("https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1000&q=80");
-        }
-
-        .bikes {
-            background-image:
-                url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=80");
-        }
-
-
-        /* ================= SHOWROOM ================= */
-
-        .showroom {
-            background: #111827;
-
-            color: white;
-
-            text-align: center;
-        }
-
-        .showroom p {
-            color: #d1d5db;
-
-            max-width: 700px;
-
-            margin: 15px auto 25px;
-        }
-
-        .showroom-location {
-            font-size: 20px;
-
-            font-weight: 700;
-
-            color: #60a5fa;
-        }
-
-
-        /* ================= CTA ================= */
-
-        .cta {
-            text-align: center;
-
-            background: #eff6ff;
-        }
-
-        .cta h2 {
-            font-size: 40px;
-
-            margin-bottom: 12px;
-        }
-
-        .cta p {
-            color: #6b7280;
-
-            margin-bottom: 25px;
-        }
-
-
-        /* ================= FOOTER ================= */
-
-        footer {
-            background: #020617;
-
-            color: white;
-
-            padding: 50px 6% 20px;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                2fr 1fr 1fr;
-
-            gap: 40px;
-        }
-
-        .footer-brand h2 {
-            font-size: 28px;
-
-            margin-bottom: 10px;
-        }
-
-        .footer-brand h2 span {
-            color: #3b82f6;
-        }
-
-        .footer-brand p {
-            color: #9ca3af;
-
-            max-width: 400px;
-        }
-
-        footer h3 {
-            margin-bottom: 15px;
-        }
-
-        footer ul {
-            list-style: none;
-        }
-
-        footer li {
-            margin-bottom: 8px;
-        }
-
-        footer a {
-            color: #9ca3af;
-
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        .copyright {
-            max-width: 1200px;
-
-            margin: 40px auto 0;
-
-            padding-top: 20px;
-
-            border-top:
-                1px solid #1f2937;
-
-            text-align: center;
-
-            color: #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 1000px) {
-
-            .location-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .features {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .steps {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-        }
-
-
-        @media (max-width: 800px) {
-
-            nav {
-                flex-direction: column;
-
-                gap: 15px;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-
-                justify-content: center;
-
-                gap: 15px;
-            }
-
-            .hero-content h1 {
-                font-size: 42px;
-            }
-
-            .main-location-card {
-                flex-direction: column;
-
-                text-align: center;
-            }
-
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-
-        @media (max-width: 600px) {
-
-            section {
-                padding: 60px 20px;
-            }
-
-            .hero {
-                min-height: 580px;
-            }
-
-            .hero-content h1 {
-                font-size: 36px;
-            }
-
-            .hero-content p {
-                font-size: 16px;
-            }
-
-            .section-heading h2 {
-                font-size: 30px;
-            }
-
-            .location-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .steps {
-                grid-template-columns: 1fr;
-            }
-
-            .main-location-card {
-                padding: 25px 18px;
-            }
-
-            .location-info h3 {
-                font-size: 24px;
-            }
-        }
-
-    </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
 
-    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
 
-    <nav>
+        <div class="container nav-container">
 
-        <a href="index.html" class="logo">
-            Atul<span>Ride</span>
-        </a>
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>Eco<span>Swap</span></span>
+            </a>
 
-        <ul class="nav-links">
+            <button class="menu-btn" aria-label="Open Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
 
-            <li>
-                <a href="index.html">
+            <nav class="nav-links">
+
+                <a href="#home" class="active">
                     Home
                 </a>
-            </li>
 
-            <li>
-                <a href="vehicles.html">
-                    Vehicles
+                <a href="#browse">
+                    Browse
                 </a>
-            </li>
 
-            <li>
-                <a href="booking.html">
-                    Booking
+                <a href="#how-it-works">
+                    How It Works
                 </a>
-            </li>
 
-            <li>
-                <a href="about.html">
+                <a href="#about">
                     About
                 </a>
-            </li>
-
-            <li>
-                <a href="contact.html">
-                    Contact
-                </a>
-            </li>
-
-            <li>
-                <a href="profile.html" class="profile-btn">
-                    Profile
-                </a>
-            </li>
-
-        </ul>
-
-    </nav>
-
-
-    <!-- ================= HERO ================= -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <span>
-                🚗 Simple • Convenient • Reliable
-            </span>
-
-            <h1>
-                Rent Your Perfect Vehicle
-            </h1>
-
-            <p>
-                Explore cars, SUVs and bikes with flexible
-                hourly and daily rental options. Book your
-                ride easily with AtulRide.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    href="vehicles.html"
-                    class="hero-btn primary-btn"
-                >
-                    Explore Vehicles
-                </a>
-
-                <a
-                    href="booking.html"
-                    class="hero-btn secondary-btn"
-                >
-                    Book Your Ride
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= MAIN LOCATION ================= -->
-
-    <section class="main-location">
-
-        <div class="section-heading">
-
-            <span>
-                📍 Our Main Location
-            </span>
-
-            <h2>
-                AtulRide Showroom
-            </h2>
-
-            <p>
-                Visit our main showroom to collect
-                your booked vehicle.
-            </p>
-
-        </div>
-
-
-        <div class="main-location-card">
-
-            <div class="location-icon">
-                📍
-            </div>
-
-            <div class="location-info">
-
-                <h3>
-                    AtulRide Showroom
-                </h3>
-
-                <p>
-                    <strong>
-                        Location:
-                    </strong>
-
-                    Ranchi, Jharkhand – 834001
-                </p>
-
-                <p>
-                    🏪 Main Pickup & Vehicle
-                    Collection Point
-                </p>
-
-                <a
-                    href="https://www.google.com/maps/search/?api=1&query=Ranchi%2C%20Jharkhand%20834001"
-                    target="_blank"
-                    class="map-btn"
-                >
-                    📍 View on Google Maps
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= SERVICE LOCATIONS ================= -->
-
-    <section class="service-locations">
-
-        <div class="section-heading">
-
-            <span>
-                📍 Pickup Locations
-            </span>
-
-            <h2>
-                AtulRide Service Locations
-            </h2>
-
-            <p>
-                Select your preferred pickup location
-                while making your booking.
-            </p>
-
-        </div>
-
-
-        <div class="location-grid">
-
-
-            <div class="location-card">
-
-                <div class="card-icon">
-                    📍
-                </div>
-
-                <h3>
-                    Main Road
-                </h3>
-
-                <p>
-                    Ranchi, Jharkhand
-                </p>
 
                 <button
-                    onclick="selectLocation('Main Road, Ranchi')"
-                >
-                    Select
+                    class="nav-login-btn login-btn"
+                    onclick="openModal('loginModal')">
+                    Login
                 </button>
-
-            </div>
-
-
-            <div class="location-card">
-
-                <div class="card-icon">
-                    📍
-                </div>
-
-                <h3>
-                    Lalpur
-                </h3>
-
-                <p>
-                    Ranchi, Jharkhand
-                </p>
 
                 <button
-                    onclick="selectLocation('Lalpur, Ranchi')"
-                >
-                    Select
+                    class="nav-signup-btn"
+                    onclick="openModal('signupModal')">
+                    Sign Up
                 </button>
 
-            </div>
-
-
-            <div class="location-card">
-
-                <div class="card-icon">
-                    📍
-                </div>
-
-                <h3>
-                    Kanke Road
-                </h3>
-
-                <p>
-                    Ranchi, Jharkhand
-                </p>
-
-                <button
-                    onclick="selectLocation('Kanke Road, Ranchi')"
-                >
-                    Select
-                </button>
-
-            </div>
-
-
-            <div class="location-card">
-
-                <div class="card-icon">
-                    📍
-                </div>
-
-                <h3>
-                    Harmu
-                </h3>
-
-                <p>
-                    Ranchi, Jharkhand
-                </p>
-
-                <button
-                    onclick="selectLocation('Harmu, Ranchi')"
-                >
-                    Select
-                </button>
-
-            </div>
-
-
-            <div class="location-card">
-
-                <div class="card-icon">
-                    📍
-                </div>
-
-                <h3>
-                    Doranda
-                </h3>
-
-                <p>
-                    Ranchi, Jharkhand
-                </p>
-
-                <button
-                    onclick="selectLocation('Doranda, Ranchi')"
-                >
-                    Select
-                </button>
-
-            </div>
-
+            </nav>
 
         </div>
 
-    </section>
+    </header>
 
 
-    <!-- ================= WHY CHOOSE ================= -->
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-    <section class="why-section">
+    <main>
 
-        <div class="section-heading">
+        <section class="hero" id="home">
 
-            <span>
-                ⭐ Why Choose AtulRide?
-            </span>
+            <div class="container hero-container">
 
-            <h2>
-                Everything You Need For Your Journey
-            </h2>
+                <div class="hero-content">
 
-            <p>
-                We make vehicle rental simple,
-                flexible and convenient.
-            </p>
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-leaf"></i>
+                        Sustainable Living
+                    </div>
 
-        </div>
+                    <h1>
+                        Give Things a
+                        <span>Second Life.</span>
+                    </h1>
 
+                    <p>
+                        Exchange the things you no longer need and
+                        discover useful items from your community.
+                        Save money, reduce waste and build a
+                        sustainable future together.
+                    </p>
 
-        <div class="features">
+                    <div class="hero-buttons">
 
+                        <a href="#browse" class="btn btn-primary">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Explore Items
+                        </a>
 
-            <div class="feature-card">
+                        <button
+                            class="btn btn-secondary"
+                            onclick="openModal('addItemModal')">
 
-                <div class="feature-icon">
-                    🚗
+                            <i class="fa-solid fa-plus"></i>
+                            List an Item
+
+                        </button>
+
+                    </div>
+
+                    <div class="hero-stats">
+
+                        <div class="stat">
+                            <strong>1K+</strong>
+                            <span>Items Listed</span>
+                        </div>
+
+                        <div class="stat">
+                            <strong>500+</strong>
+                            <span>Active Users</span>
+                        </div>
+
+                        <div class="stat">
+                            <strong>750+</strong>
+                            <span>Successful Swaps</span>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <h3>
-                    Wide Range
-                </h3>
 
-                <p>
-                    Choose from cars, SUVs and bikes
-                    according to your requirements.
-                </p>
+                <!-- HERO VISUAL -->
+
+                <div class="hero-visual">
+
+                    <div class="floating-card card-one">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+
+                        <div>
+                            <strong>Smartphone</strong>
+                            <small>Available for Swap</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="hero-circle">
+
+                        <div class="hero-leaf">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+
+                        <div class="hero-recycle">
+                            <i class="fa-solid fa-recycle"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-card card-two">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+
+                        <div>
+                            <strong>Programming Books</strong>
+                            <small>Like New</small>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
+        </section>
 
-            <div class="feature-card">
 
-                <div class="feature-icon">
-                    💰
-                </div>
+        <!-- =====================================================
+             BROWSE SECTION
+        ====================================================== -->
 
-                <h3>
-                    Affordable Prices
-                </h3>
+        <section class="browse-section" id="browse">
 
-                <p>
-                    Flexible hourly and daily rental
-                    options at affordable rates.
-                </p>
+            <div class="container">
 
-            </div>
+                <div class="section-heading">
 
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    ⏰
-                </div>
-
-                <h3>
-                    Flexible Rental
-                </h3>
-
-                <p>
-                    Select rental duration according
-                    to your journey.
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    Easy Booking
-                </h3>
-
-                <p>
-                    Book your vehicle online through
-                    a simple booking process.
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= HOW IT WORKS ================= -->
-
-    <section>
-
-        <div class="section-heading">
-
-            <span>
-                🚀 How It Works
-            </span>
-
-            <h2>
-                Book Your Ride In Simple Steps
-            </h2>
-
-        </div>
-
-
-        <div class="steps">
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    1
-                </div>
-
-                <h3>
-                    Select Vehicle
-                </h3>
-
-                <p>
-                    Browse and select your preferred vehicle.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    2
-                </div>
-
-                <h3>
-                    Choose Duration
-                </h3>
-
-                <p>
-                    Select hourly or daily rental.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    3
-                </div>
-
-                <h3>
-                    Enter Details
-                </h3>
-
-                <p>
-                    Add pickup and return date and time.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">
-                    4
-                </div>
-
-                <h3>
-                    Confirm Booking
-                </h3>
-
-                <p>
-                    Confirm your booking and collect
-                    the vehicle from the showroom.
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= CATEGORIES ================= -->
-
-    <section class="categories">
-
-        <div class="section-heading">
-
-            <span>
-                🚘 Vehicle Categories
-            </span>
-
-            <h2>
-                Choose Your Perfect Ride
-            </h2>
-
-            <p>
-                Find a vehicle that matches your journey.
-            </p>
-
-        </div>
-
-
-        <div class="category-grid">
-
-
-            <!-- CARS -->
-
-            <a
-                href="vehicles.html"
-                class="category-card cars"
-            >
-
-                <div>
+                    <span class="section-tag">
+                        Explore
+                    </span>
 
                     <h2>
-                        🚗 Cars
+                        Find Something
+                        <span>Useful</span>
                     </h2>
 
                     <p>
-                        Comfortable cars for daily travel.
+                        Browse items shared by people in the
+                        EcoSwap community.
                     </p>
-
-                    <span class="category-btn">
-                        View Cars →
-                    </span>
 
                 </div>
 
-            </a>
 
+                <!-- SEARCH -->
 
-            <!-- SUVs -->
+                <div class="search-box">
 
-            <a
-                href="vehicles.html"
-                class="category-card suv"
-            >
+                    <i class="fa-solid fa-magnifying-glass"></i>
 
-                <div>
-
-                    <h2>
-                        🚙 SUVs
-                    </h2>
-
-                    <p>
-                        Spacious SUVs for long journeys.
-                    </p>
-
-                    <span class="category-btn">
-                        View SUVs →
-                    </span>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search items..."
+                        oninput="searchItems()">
 
                 </div>
 
-            </a>
 
+                <!-- CATEGORIES -->
 
-            <!-- BIKES -->
+                <div class="categories" id="categories">
 
-            <a
-                href="vehicles.html"
-                class="category-card bikes"
-            >
+                    <button
+                        class="category-btn active"
+                        data-category="All"
+                        onclick="filterCategory('All')">
 
-                <div>
+                        <i class="fa-solid fa-border-all"></i>
+                        All
 
-                    <h2>
-                        🏍️ Bikes
-                    </h2>
+                    </button>
 
-                    <p>
-                        Easy and affordable bikes
-                        for city rides.
-                    </p>
+                    <button
+                        class="category-btn"
+                        data-category="Electronics"
+                        onclick="filterCategory('Electronics')">
 
-                    <span class="category-btn">
-                        View Bikes →
-                    </span>
+                        <i class="fa-solid fa-mobile-screen"></i>
+                        Electronics
+
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="Fashion"
+                        onclick="filterCategory('Fashion')">
+
+                        <i class="fa-solid fa-shirt"></i>
+                        Fashion
+
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="Books"
+                        onclick="filterCategory('Books')">
+
+                        <i class="fa-solid fa-book"></i>
+                        Books
+
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="Furniture"
+                        onclick="filterCategory('Furniture')">
+
+                        <i class="fa-solid fa-couch"></i>
+                        Furniture
+
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="Sports"
+                        onclick="filterCategory('Sports')">
+
+                        <i class="fa-solid fa-futbol"></i>
+                        Sports
+
+                    </button>
+
+                    <button
+                        class="category-btn"
+                        data-category="Others"
+                        onclick="filterCategory('Others')">
+
+                        <i class="fa-solid fa-box"></i>
+                        Others
+
+                    </button>
 
                 </div>
 
-            </a>
+
+                <!-- ITEMS -->
+
+                <div
+                    class="items-grid"
+                    id="itemsContainer">
+
+                    <!-- Items will be loaded by JavaScript -->
+
+                    <div class="item-card">
+
+                        <div class="item-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80"
+                                alt="Smartphone">
+
+                        </div>
+
+                        <div class="item-content">
+
+                            <span class="item-category">
+                                Electronics
+                            </span>
+
+                            <h3>
+                                Smartphone
+                            </h3>
+
+                            <p>
+                                Good condition smartphone available
+                                for exchange.
+                            </p>
+
+                            <div class="item-bottom">
+
+                                <span class="condition">
+                                    Good
+                                </span>
+
+                                <button
+                                    class="view-item-btn"
+                                    onclick="viewItem(1)">
+                                    View
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
-        </div>
+                    <div class="item-card">
 
-    </section>
+                        <div class="item-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=700&q=80"
+                                alt="Books">
+
+                        </div>
+
+                        <div class="item-content">
+
+                            <span class="item-category">
+                                Books
+                            </span>
+
+                            <h3>
+                                Programming Books
+                            </h3>
+
+                            <p>
+                                Useful programming books for
+                                students and developers.
+                            </p>
+
+                            <div class="item-bottom">
+
+                                <span class="condition">
+                                    Like New
+                                </span>
+
+                                <button
+                                    class="view-item-btn"
+                                    onclick="viewItem(2)">
+                                    View
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
-    <!-- ================= SHOWROOM ================= -->
+                    <div class="item-card">
 
-    <section class="showroom">
+                        <div class="item-image">
 
-        <div class="section-heading">
+                            <img
+                                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80"
+                                alt="Headphones">
 
-            <span>
-                🏪 Vehicle Pickup
-            </span>
+                        </div>
 
-            <h2>
-                Pickup From AtulRide Showroom
-            </h2>
+                        <div class="item-content">
 
-            <p>
-                After completing your booking,
-                visit the AtulRide showroom to
-                collect your booked vehicle.
-            </p>
+                            <span class="item-category">
+                                Electronics
+                            </span>
 
-            <div class="showroom-location">
-                📍 Ranchi, Jharkhand – 834001
+                            <h3>
+                                Wireless Headphones
+                            </h3>
+
+                            <p>
+                                Wireless headphones in working
+                                condition.
+                            </p>
+
+                            <div class="item-bottom">
+
+                                <span class="condition">
+                                    Good
+                                </span>
+
+                                <button
+                                    class="view-item-btn"
+                                    onclick="viewItem(3)">
+                                    View
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-card">
+
+                        <div class="item-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=80"
+                                alt="Study Chair">
+
+                        </div>
+
+                        <div class="item-content">
+
+                            <span class="item-category">
+                                Furniture
+                            </span>
+
+                            <h3>
+                                Study Chair
+                            </h3>
+
+                            <p>
+                                Comfortable chair suitable for
+                                study and work.
+                            </p>
+
+                            <div class="item-bottom">
+
+                                <span class="condition">
+                                    Good
+                                </span>
+
+                                <button
+                                    class="view-item-btn"
+                                    onclick="viewItem(4)">
+                                    View
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="view-all-container">
+
+                    <button
+                        class="btn btn-outline"
+                        onclick="viewAllItems()">
+
+                        View All Items
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- ================= CTA ================= -->
+        <!-- =====================================================
+             HOW IT WORKS
+        ====================================================== -->
 
-    <section class="cta">
+        <section
+            class="how-it-works"
+            id="how-it-works">
 
-        <h2>
-            Ready To Start Your Journey?
-        </h2>
+            <div class="container">
 
-        <p>
-            Choose your vehicle and book your ride
-            with AtulRide today.
-        </p>
+                <div class="section-heading">
 
-        <a
-            href="vehicles.html"
-            class="hero-btn primary-btn"
-        >
-            Browse Vehicles
-        </a>
+                    <span class="section-tag">
+                        Simple Process
+                    </span>
 
-    </section>
+                    <h2>
+                        How <span>EcoSwap</span> Works
+                    </h2>
+
+                    <p>
+                        Swapping items is simple, fast and
+                        environmentally friendly.
+                    </p>
+
+                </div>
 
 
-    <!-- ================= FOOTER ================= -->
+                <div class="steps">
 
-    <footer>
+                    <div class="step">
 
-        <div class="footer-grid">
+                        <div class="step-number">
+                            01
+                        </div>
 
+                        <div class="step-icon">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+
+                        <h3>
+                            Create an Account
+                        </h3>
+
+                        <p>
+                            Sign up and become part of the
+                            EcoSwap community.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+
+                        <h3>
+                            List Your Item
+                        </h3>
+
+                        <p>
+                            Add an item you no longer need
+                            with its details and image.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+
+                        <h3>
+                            Find an Item
+                        </h3>
+
+                        <p>
+                            Search for something useful from
+                            other community members.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+
+                        <h3>
+                            Swap & Reuse
+                        </h3>
+
+                        <p>
+                            Send a swap request and give
+                            products a second life.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+        <section class="about-section" id="about">
+
+            <div class="container about-container">
+
+                <div class="about-image">
+
+                    <div class="about-icon">
+                        <i class="fa-solid fa-earth-americas"></i>
+                    </div>
+
+                    <div class="about-floating">
+
+                        <i class="fa-solid fa-recycle"></i>
+
+                        <span>
+                            Reuse • Reduce • Recycle
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-content">
+
+                    <span class="section-tag">
+                        About EcoSwap
+                    </span>
+
+                    <h2>
+                        Small Actions.
+                        <span>Big Impact.</span>
+                    </h2>
+
+                    <p>
+                        EcoSwap is a community-driven platform
+                        designed to make exchanging unused items
+                        easier.
+                    </p>
+
+                    <p>
+                        Instead of throwing away things that are
+                        still useful, people can share them with
+                        others who need them.
+                    </p>
+
+
+                    <div class="about-features">
+
+                        <div class="about-feature">
+
+                            <i class="fa-solid fa-leaf"></i>
+
+                            <div>
+
+                                <h4>
+                                    Reduce Waste
+                                </h4>
+
+                                <p>
+                                    Keep useful products away
+                                    from landfills.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-feature">
+
+                            <i class="fa-solid fa-wallet"></i>
+
+                            <div>
+
+                                <h4>
+                                    Save Money
+                                </h4>
+
+                                <p>
+                                    Get useful items without
+                                    always buying new ones.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-feature">
+
+                            <i class="fa-solid fa-users"></i>
+
+                            <div>
+
+                                <h4>
+                                    Build Community
+                                </h4>
+
+                                <p>
+                                    Connect with people and
+                                    share resources.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CTA
+        ====================================================== -->
+
+        <section class="cta-section">
+
+            <div class="container">
+
+                <div class="cta-box">
+
+                    <div class="cta-content">
+
+                        <span class="section-tag">
+                            Join EcoSwap
+                        </span>
+
+                        <h2>
+                            Ready to Give Something
+                            a <span>Second Life?</span>
+                        </h2>
+
+                        <p>
+                            Start sharing, swapping and making
+                            a positive environmental impact today.
+                        </p>
+
+                        <div class="cta-buttons">
+
+                            <button
+                                class="btn btn-white"
+                                onclick="openModal('signupModal')">
+
+                                <i class="fa-solid fa-user-plus"></i>
+                                Create Account
+
+                            </button>
+
+                            <button
+                                class="btn btn-transparent"
+                                onclick="openModal('addItemModal')">
+
+                                <i class="fa-solid fa-plus"></i>
+                                List an Item
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="cta-icon">
+
+                        <i class="fa-solid fa-leaf"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
 
             <div class="footer-brand">
 
-                <h2>
-                    Atul<span>Ride</span>
-                </h2>
+                <a href="#home" class="logo">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                    <span>
+                        Eco<span>Swap</span>
+                    </span>
+
+                </a>
 
                 <p>
-                    A simple and convenient web-based
-                    vehicle rental platform for cars,
-                    SUVs and bikes.
+                    Give useful things a second life and
+                    build a more sustainable future together.
                 </p>
 
+                <div class="social-links">
+
+                    <a href="#" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+
+                    <a href="#" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+
+                </div>
+
             </div>
 
 
-            <div>
+            <div class="footer-links">
 
-                <h3>
+                <h4>
                     Quick Links
-                </h3>
+                </h4>
 
-                <ul>
+                <a href="#home">
+                    Home
+                </a>
 
-                    <li>
-                        <a href="index.html">
-                            Home
-                        </a>
-                    </li>
+                <a href="#browse">
+                    Browse Items
+                </a>
 
-                    <li>
-                        <a href="vehicles.html">
-                            Vehicles
-                        </a>
-                    </li>
+                <a href="#how-it-works">
+                    How It Works
+                </a>
 
-                    <li>
-                        <a href="booking.html">
-                            Booking
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="about.html">
-                            About
-                        </a>
-                    </li>
-
-                </ul>
+                <a href="#about">
+                    About
+                </a>
 
             </div>
 
 
-            <div>
+            <div class="footer-links">
 
-                <h3>
-                    Contact
-                </h3>
+                <h4>
+                    Categories
+                </h4>
 
-                <ul>
+                <a href="#browse"
+                    onclick="filterCategory('Electronics')">
+                    Electronics
+                </a>
 
-                    <li>
-                        📍 Ranchi, Jharkhand – 834001
-                    </li>
+                <a href="#browse"
+                    onclick="filterCategory('Books')">
+                    Books
+                </a>
 
-                    <li>
-                        <a href="contact.html">
-                            Contact Us
-                        </a>
-                    </li>
+                <a href="#browse"
+                    onclick="filterCategory('Fashion')">
+                    Fashion
+                </a>
 
-                </ul>
+                <a href="#browse"
+                    onclick="filterCategory('Furniture')">
+                    Furniture
+                </a>
 
             </div>
 
+
+            <div class="footer-links">
+
+                <h4>
+                    Get Started
+                </h4>
+
+                <a
+                    href="#"
+                    onclick="openModal('loginModal'); return false;">
+                    Login
+                </a>
+
+                <a
+                    href="#"
+                    onclick="openModal('signupModal'); return false;">
+                    Sign Up
+                </a>
+
+                <a
+                    href="#"
+                    onclick="openModal('addItemModal'); return false;">
+                    List an Item
+                </a>
+
+            </div>
 
         </div>
 
 
-        <div class="copyright">
+        <div class="footer-bottom">
 
-            © 2026 AtulRide. All Rights Reserved.
+            <div class="container">
+
+                <p>
+                    © 2026 EcoSwap. All rights reserved.
+                </p>
+
+                <p>
+                    Made with
+                    <i class="fa-solid fa-heart"></i>
+                    for a greener future.
+                </p>
+
+            </div>
 
         </div>
 
     </footer>
 
 
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- =====================================================
+         LOGIN MODAL
+    ====================================================== -->
 
-    <script>
+    <div
+        class="modal"
+        id="loginModal">
 
-        function selectLocation(location) {
+        <div class="modal-content">
 
-            localStorage.setItem(
-                "selectedLocation",
-                location
-            );
+            <button
+                class="modal-close"
+                onclick="closeModal('loginModal')">
 
-            window.location.href =
-                "booking.html";
+                <i class="fa-solid fa-xmark"></i>
 
-        }
+            </button>
 
-    </script>
+            <div class="modal-header">
 
+                <div class="modal-icon">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </div>
+
+                <h2>
+                    Welcome Back
+                </h2>
+
+                <p>
+                    Login to your EcoSwap account.
+                </p>
+
+            </div>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="modal-submit">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login
+
+                </button>
+
+            </form>
+
+
+            <div class="modal-switch">
+
+                Don't have an account?
+
+                <button
+                    onclick="switchModal('loginModal', 'signupModal')">
+
+                    Create Account
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SIGNUP MODAL
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="signupModal">
+
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                onclick="closeModal('signupModal')">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+            <div class="modal-header">
+
+                <div class="modal-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+
+                <h2>
+                    Join EcoSwap
+                </h2>
+
+                <p>
+                    Create your account and start swapping.
+                </p>
+
+            </div>
+
+
+            <form id="signupForm">
+
+                <div class="form-group">
+
+                    <label for="signupName">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="signupName"
+                            placeholder="Enter your name"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="signupEmail">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="signupEmail"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="signupPassword">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Minimum 6 characters"
+                            minlength="6"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="modal-submit">
+
+                    <i class="fa-solid fa-user-plus"></i>
+                    Create Account
+
+                </button>
+
+            </form>
+
+
+            <div class="modal-switch">
+
+                Already have an account?
+
+                <button
+                    onclick="switchModal('signupModal', 'loginModal')">
+
+                    Login
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ADD ITEM MODAL
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="addItemModal">
+
+        <div class="modal-content modal-large">
+
+            <button
+                class="modal-close"
+                onclick="closeModal('addItemModal')">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+            <div class="modal-header">
+
+                <div class="modal-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <h2>
+                    List an Item
+                </h2>
+
+                <p>
+                    Give your unused item a second life.
+                </p>
+
+            </div>
+
+
+            <form id="addItemForm">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="itemName">
+                            Item Name *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-box"></i>
+
+                            <input
+                                type="text"
+                                id="itemName"
+                                name="name"
+                                placeholder="e.g. Smartphone"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="itemCategory">
+                            Category *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <select
+                                id="itemCategory"
+                                name="category"
+                                required>
+
+                                <option value="">
+                                    Select Category
+                                </option>
+
+                                <option value="Electronics">
+                                    Electronics
+                                </option>
+
+                                <option value="Fashion">
+                                    Fashion
+                                </option>
+
+                                <option value="Books">
+                                    Books
+                                </option>
+
+                                <option value="Furniture">
+                                    Furniture
+                                </option>
+
+                                <option value="Sports">
+                                    Sports
+                                </option>
+
+                                <option value="Others">
+                                    Others
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="itemCondition">
+                            Condition *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-star"></i>
+
+                            <select
+                                id="itemCondition"
+                                name="condition"
+                                required>
+
+                                <option value="">
+                                    Select Condition
+                                </option>
+
+                                <option value="New">
+                                    New
+                                </option>
+
+                                <option value="Like New">
+                                    Like New
+                                </option>
+
+                                <option value="Good">
+                                    Good
+                                </option>
+
+                                <option value="Fair">
+                                    Fair
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="itemImage">
+                            Item Image *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-image"></i>
+
+                            <input
+                                type="file"
+                                id="itemImage"
+                                name="image"
+                                accept="image/jpeg,image/png,image/webp"
+                                required>
+
+                        </div>
+
+                        <small>
+                            JPG, PNG or WEBP — Max 5 MB
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="itemDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="itemDescription"
+                        name="description"
+                        rows="5"
+                        placeholder="Tell others about your item..."></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="modal-submit">
+
+                    <i class="fa-solid fa-plus"></i>
+                    Add Item
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ITEM DETAILS MODAL
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="itemDetailsModal">
+
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                onclick="closeModal('itemDetailsModal')">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+            <div id="itemDetailsContent">
+
+                <div class="modal-header">
+
+                    <div class="modal-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <h2>
+                        Item Details
+                    </h2>
+
+                    <p>
+                        Item information will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        <span id="toastMessage">
+            Success
+        </span>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
 
 </body>
 
