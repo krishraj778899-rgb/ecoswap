@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Book Your Vehicle - AtulRide</title>
 
     <style>
@@ -59,14 +60,11 @@
             background:
                 linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
                 url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
-
             background-size: cover;
             background-position: center;
-
             display: flex;
             justify-content: center;
             align-items: center;
-
             text-align: center;
             color: white;
             padding: 40px 20px;
@@ -86,7 +84,6 @@
             width: 90%;
             max-width: 1200px;
             margin: 50px auto;
-
             display: grid;
             grid-template-columns: 0.8fr 1.2fr;
             gap: 30px;
@@ -115,16 +112,12 @@
         .step-number {
             min-width: 42px;
             height: 42px;
-
             background: #00a8cc;
             color: white;
-
             border-radius: 50%;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             font-weight: bold;
         }
 
@@ -142,7 +135,6 @@
         .showroom-box {
             margin-top: 25px;
             padding: 18px;
-
             background: #eefaff;
             border-left: 4px solid #00a8cc;
             border-radius: 10px;
@@ -187,10 +179,8 @@
         select {
             width: 100%;
             padding: 13px 14px;
-
             border: 1px solid #d1d5db;
             border-radius: 9px;
-
             outline: none;
             font-size: 15px;
             background: white;
@@ -199,26 +189,43 @@
         input:focus,
         select:focus {
             border-color: #00a8cc;
-
-            box-shadow:
-                0 0 0 3px rgba(0,168,204,.1);
+            box-shadow: 0 0 0 3px rgba(0,168,204,.1);
         }
 
-        /* DL */
-        .dl-note {
-            margin-top: 7px;
-            font-size: 12px;
-            color: #666;
+        select option:disabled {
+            color: #999;
         }
 
-        /* 18+ */
+        .id-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 12px;
+        }
+
+        /* AGE */
+        .age-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 12px 14px;
+            border-radius: 9px;
+            margin-top: 8px;
+            color: #166534;
+            font-size: 14px;
+            display: none;
+        }
+
+        .age-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+        }
+
+        /* CHECKBOX */
         .terms-box {
             margin: 20px 0;
             padding: 15px;
-
             background: #f9fafb;
             border: 1px solid #e5e7eb;
-
             border-radius: 10px;
         }
 
@@ -244,10 +251,8 @@
         .summary {
             margin-top: 25px;
             padding: 20px;
-
             background: #111827;
             color: white;
-
             border-radius: 14px;
         }
 
@@ -258,22 +263,17 @@
         .summary-row {
             display: flex;
             justify-content: space-between;
-
             gap: 15px;
             padding: 7px 0;
-
             font-size: 15px;
         }
 
         .total-row {
             border-top: 1px solid #374151;
-
             margin-top: 10px;
             padding-top: 15px;
-
             font-size: 21px;
             font-weight: bold;
-
             color: #00d4ff;
         }
 
@@ -299,22 +299,18 @@
 
         .payment-option label {
             border: 1px solid #d1d5db;
-
             padding: 13px 8px;
-
             border-radius: 9px;
-
             text-align: center;
             cursor: pointer;
-
             font-size: 13px;
             margin: 0;
+            transition: .2s;
         }
 
         .payment-option input:checked + label {
             background: #e6faff;
             border-color: #00a8cc;
-
             color: #007c99;
             font-weight: bold;
         }
@@ -322,27 +318,14 @@
         /* BUTTON */
         .submit-btn {
             width: 100%;
-
             border: none;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #00a8cc,
-                    #007c99
-                );
-
+            background: linear-gradient(135deg, #00a8cc, #007c99);
             color: white;
-
             padding: 15px;
-
             border-radius: 10px;
-
             font-size: 17px;
             font-weight: bold;
-
             cursor: pointer;
-
             margin-top: 25px;
         }
 
@@ -351,13 +334,19 @@
             transform: translateY(-1px);
         }
 
+        /* NOTICE */
+        .privacy-note {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
         /* FOOTER */
         footer {
             background: #111827;
             color: white;
-
             text-align: center;
-
             padding: 25px;
             margin-top: 50px;
         }
@@ -368,7 +357,6 @@
 
         /* MOBILE */
         @media (max-width: 850px) {
-
             .booking-section {
                 grid-template-columns: 1fr;
             }
@@ -379,7 +367,6 @@
         }
 
         @media (max-width: 600px) {
-
             .hero h1 {
                 font-size: 30px;
             }
@@ -389,6 +376,10 @@
             }
 
             .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .id-row {
                 grid-template-columns: 1fr;
             }
 
@@ -408,188 +399,83 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-
-        <div class="logo">
-            AtulRide
-        </div>
+        <div class="logo">AtulRide</div>
 
         <ul class="nav-links">
-
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-
-            <li>
-                <a href="vehicles.html">Vehicles</a>
-            </li>
-
-            <li>
-                <a href="booking.html">Booking</a>
-            </li>
-
-            <li>
-                <a href="about.html">About</a>
-            </li>
-
-            <li>
-                <a href="contact.html">Contact</a>
-            </li>
-
-            <li>
-                <a href="profile.html">Profile</a>
-            </li>
-
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="profile.html">Profile</a></li>
         </ul>
-
     </nav>
 
 
     <!-- HERO -->
     <section class="hero">
-
         <div>
-
-            <h1>
-                Book Your Ride 🚗
-            </h1>
-
-            <p>
-                Select your vehicle, rental duration and pickup details.
-            </p>
-
+            <h1>Book Your Ride 🚗</h1>
+            <p>Choose your vehicle, rental duration and pickup details.</p>
         </div>
-
     </section>
 
 
-    <!-- BOOKING -->
+    <!-- BOOKING SECTION -->
     <section class="booking-section">
 
-
-        <!-- LEFT -->
+        <!-- LEFT INFORMATION -->
         <div class="info-card">
 
-            <h2>
-                Easy Booking
-            </h2>
-
+            <h2>Easy Booking</h2>
 
             <div class="step">
-
-                <div class="step-number">
-                    1
-                </div>
-
+                <div class="step-number">1</div>
                 <div>
-
-                    <h3>
-                        Select Vehicle
-                    </h3>
-
-                    <p>
-                        Choose a car, SUV or bike according to your requirement.
-                    </p>
-
+                    <h3>Select Vehicle</h3>
+                    <p>Choose a car, SUV or bike according to your requirement.</p>
                 </div>
-
             </div>
 
-
             <div class="step">
-
-                <div class="step-number">
-                    2
-                </div>
-
+                <div class="step-number">2</div>
                 <div>
-
-                    <h3>
-                        Choose Duration
-                    </h3>
-
-                    <p>
-                        Select hourly or daily rental according to your journey.
-                    </p>
-
+                    <h3>Choose Duration</h3>
+                    <p>Select hourly or daily rental according to your journey.</p>
                 </div>
-
             </div>
 
-
             <div class="step">
-
-                <div class="step-number">
-                    3
-                </div>
-
+                <div class="step-number">3</div>
                 <div>
-
-                    <h3>
-                        Pickup & Return
-                    </h3>
-
-                    <p>
-                        Enter your pickup and return date and time.
-                    </p>
-
+                    <h3>Enter Pickup & Return</h3>
+                    <p>Provide your pickup and return date and time.</p>
                 </div>
-
             </div>
 
-
             <div class="step">
-
-                <div class="step-number">
-                    4
-                </div>
-
+                <div class="step-number">4</div>
                 <div>
-
-                    <h3>
-                        Driving Licence
-                    </h3>
-
-                    <p>
-                        Enter your valid driving licence number.
-                    </p>
-
+                    <h3>Driving Licence</h3>
+                    <p>Provide your valid driving licence number.</p>
                 </div>
-
             </div>
 
-
             <div class="step">
-
-                <div class="step-number">
-                    5
-                </div>
-
+                <div class="step-number">5</div>
                 <div>
-
-                    <h3>
-                        Confirm & Pay
-                    </h3>
-
-                    <p>
-                        Check your rental amount and continue to payment.
-                    </p>
-
+                    <h3>Confirm & Pay</h3>
+                    <p>Check your rental amount and continue to payment.</p>
                 </div>
-
             </div>
 
 
             <div class="showroom-box">
-
-                <h3>
-                    📍 Pickup from AtulRide Showroom
-                </h3>
-
+                <h3>📍 Pickup from AtulRide Showroom</h3>
                 <p>
                     Your booked vehicle will be collected from the
                     AtulRide showroom in Ranchi, Jharkhand – 834001.
                 </p>
-
             </div>
 
         </div>
@@ -598,20 +484,35 @@
         <!-- RIGHT FORM -->
         <div class="form-card">
 
-            <h2>
-                Booking Details
-            </h2>
-
+            <h2>Booking Details</h2>
 
             <form id="bookingForm">
+
+                <!-- DRIVING LICENCE -->
+                <div class="form-group">
+
+                    <label for="drivingLicense">Driving Licence Number *</label>
+
+                    <input
+                        type="text"
+                        id="drivingLicense"
+                        placeholder="Enter your driving licence number"
+                        maxlength="20"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <p class="privacy-note">
+                        A valid driving licence is required for vehicle rental.
+                    </p>
+
+                </div>
 
 
                 <!-- VEHICLE -->
                 <div class="form-group">
 
-                    <label for="vehicle">
-                        Select Vehicle *
-                    </label>
+                    <label for="vehicle">Select Vehicle *</label>
 
                     <select id="vehicle" required>
 
@@ -640,7 +541,7 @@
                 </div>
 
 
-                <!-- PICKUP LOCATION -->
+                <!-- LOCATION -->
                 <div class="form-group">
 
                     <label for="pickupLocation">
@@ -700,7 +601,7 @@
                 </div>
 
 
-                <!-- PICKUP -->
+                <!-- PICKUP DATE/TIME -->
                 <div class="form-row">
 
                     <div class="form-group">
@@ -735,7 +636,7 @@
                 </div>
 
 
-                <!-- RETURN -->
+                <!-- RETURN DATE/TIME -->
                 <div class="form-row">
 
                     <div class="form-group">
@@ -770,29 +671,7 @@
                 </div>
 
 
-                <!-- DRIVING LICENCE -->
-                <div class="form-group">
-
-                    <label for="drivingLicence">
-                        Driving Licence Number *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="drivingLicence"
-                        placeholder="Enter your driving licence number"
-                        maxlength="16"
-                        required
-                    >
-
-                    <p class="dl-note">
-                        A valid driving licence is required for vehicle pickup.
-                    </p>
-
-                </div>
-
-
-                <!-- 18+ -->
+                <!-- 18+ CHECKBOX -->
                 <div class="terms-box">
 
                     <div class="checkbox-line">
@@ -804,11 +683,8 @@
                         >
 
                         <label for="ageConfirm">
-
-                            I confirm that I am
-                            <strong>18 years or older</strong>
-                            and eligible to rent the selected vehicle.
-
+                            I confirm that I am <strong>18 years or older</strong>
+                            and the information provided by me is correct.
                         </label>
 
                     </div>
@@ -819,60 +695,34 @@
                 <!-- SUMMARY -->
                 <div class="summary">
 
-                    <h3>
-                        Rental Summary
-                    </h3>
-
+                    <h3>Rental Summary</h3>
 
                     <div class="summary-row">
-
-                        <span>
-                            Vehicle
-                        </span>
-
+                        <span>Vehicle</span>
                         <strong id="summaryVehicle">
                             Not Selected
                         </strong>
-
                     </div>
 
-
                     <div class="summary-row">
-
-                        <span>
-                            Rental Type
-                        </span>
-
+                        <span>Rental Type</span>
                         <strong id="summaryType">
                             Hourly
                         </strong>
-
                     </div>
 
-
                     <div class="summary-row">
-
-                        <span>
-                            Rental Rate
-                        </span>
-
+                        <span>Rental Rate</span>
                         <strong id="summaryRate">
                             ₹0
                         </strong>
-
                     </div>
 
-
                     <div class="summary-row total-row">
-
-                        <span>
-                            Total Amount
-                        </span>
-
+                        <span>Total Amount</span>
                         <strong id="rentDisplay">
                             ₹0
                         </strong>
-
                     </div>
 
                 </div>
@@ -885,9 +735,7 @@
                         Payment Method *
                     </label>
 
-
                     <div class="payment-options">
-
 
                         <div class="payment-option">
 
@@ -966,7 +814,6 @@
                     Continue to Payment →
                 </button>
 
-
             </form>
 
         </div>
@@ -987,7 +834,9 @@
 
     <script>
 
-        /* VEHICLE RATES */
+        /* ================================
+           VEHICLE RATES
+        ================================= */
 
         const vehicleRates = {
 
@@ -1014,10 +863,15 @@
         };
 
 
-        /* ELEMENTS */
+        /* ================================
+           ELEMENTS
+        ================================= */
 
         const bookingForm =
             document.getElementById("bookingForm");
+
+        const drivingLicense =
+            document.getElementById("drivingLicense");
 
         const vehicle =
             document.getElementById("vehicle");
@@ -1040,9 +894,6 @@
         const returnTime =
             document.getElementById("returnTime");
 
-        const drivingLicence =
-            document.getElementById("drivingLicence");
-
         const ageConfirm =
             document.getElementById("ageConfirm");
 
@@ -1059,23 +910,30 @@
             document.getElementById("summaryRate");
 
 
-        /* MIN DATE */
+        /* ================================
+           DATE + DRIVING LICENCE INPUT
+        ================================= */
 
         const today =
-            new Date()
-            .toISOString()
-            .split("T")[0];
+            new Date().toISOString().split("T")[0];
 
         pickupDate.min = today;
         returnDate.min = today;
 
+        drivingLicense.addEventListener("input", function () {
+            this.value = this.value
+                .toUpperCase()
+                .replace(/\s+/g, "")
+                .slice(0, 20);
+        });
 
-        /* URL VEHICLE */
+
+        /* ================================
+           VEHICLE FROM URL
+        ================================= */
 
         const urlParams =
-            new URLSearchParams(
-                window.location.search
-            );
+            new URLSearchParams(window.location.search);
 
         const selectedVehicle =
             urlParams.get("vehicle");
@@ -1085,18 +943,17 @@
             vehicleRates[selectedVehicle]
         ) {
 
-            vehicle.value =
-                selectedVehicle;
+            vehicle.value = selectedVehicle;
 
         }
 
 
-        /* SAVED LOCATION */
+        /* ================================
+           LOCATION FROM LOCAL STORAGE
+        ================================= */
 
         const savedLocation =
-            localStorage.getItem(
-                "selectedLocation"
-            );
+            localStorage.getItem("selectedLocation");
 
         if (savedLocation) {
 
@@ -1118,23 +975,22 @@
         }
 
 
-        /* DL INPUT */
+        /* ================================
+           CUSTOMER DATA
+        ================================= */
 
-        drivingLicence.addEventListener(
-            "input",
-            function () {
+        const savedCustomer =
+            JSON.parse(
+                localStorage.getItem("customerData") || "null"
+            );
 
-                this.value =
-                    this.value
-                    .toUpperCase()
-                    .replace(/[^A-Z0-9]/g, "")
-                    .slice(0, 16);
-
-            }
-        );
+        // Name/mobile are taken from the saved account profile in the background.
+        // They are no longer displayed as booking form fields.
 
 
-        /* RENT CALCULATION */
+        /* ================================
+           CALCULATE RENT
+        ================================= */
 
         function calculateRent() {
 
@@ -1144,10 +1000,7 @@
             const type =
                 rentalType.value;
 
-            if (
-                !selected ||
-                !vehicleRates[selected]
-            ) {
+            if (!selected || !vehicleRates[selected]) {
 
                 summaryVehicle.textContent =
                     "Not Selected";
@@ -1174,6 +1027,7 @@
                 type === "hourly"
                     ? "Hourly"
                     : "Daily";
+
 
             summaryRate.textContent =
                 "₹" + rate;
@@ -1219,10 +1073,11 @@
                     if (type === "hourly") {
 
                         total =
-                            Math.ceil(hours) *
-                            rate;
+                            Math.ceil(hours) * rate;
 
-                    } else {
+                    }
+
+                    else {
 
                         const days =
                             Math.ceil(hours / 24);
@@ -1238,8 +1093,7 @@
 
 
             rentDisplay.textContent =
-                "₹" +
-                total.toLocaleString("en-IN");
+                "₹" + total.toLocaleString("en-IN");
 
 
             return total;
@@ -1247,7 +1101,9 @@
         }
 
 
-        /* UPDATE AMOUNT */
+        /* ================================
+           UPDATE AMOUNT
+        ================================= */
 
         vehicle.addEventListener(
             "change",
@@ -1280,20 +1136,21 @@
         );
 
 
-        /* RETURN DATE */
+        /* ================================
+           RETURN DATE VALIDATION
+        ================================= */
 
-        pickupDate.addEventListener(
-            "change",
-            function () {
+        pickupDate.addEventListener("change", function () {
 
-                returnDate.min =
-                    this.value;
+            returnDate.min =
+                this.value;
 
-            }
-        );
+        });
 
 
-        /* SUBMIT */
+        /* ================================
+           FORM SUBMIT
+        ================================= */
 
         bookingForm.addEventListener(
             "submit",
@@ -1302,29 +1159,29 @@
                 event.preventDefault();
 
 
-                /* DL */
+                /* DRIVING LICENCE */
 
-                if (
-                    !drivingLicence.value.trim()
-                ) {
+                const enteredDrivingLicense =
+                    drivingLicense.value.trim().toUpperCase();
+
+                if (!enteredDrivingLicense) {
 
                     alert(
-                        "Please enter your Driving Licence number."
+                        "Please enter your driving licence number."
                     );
 
-                    drivingLicence.focus();
+                    drivingLicense.focus();
 
                     return;
 
                 }
 
-
-                /* 18+ */
+                /* 18+ CONFIRMATION */
 
                 if (!ageConfirm.checked) {
 
                     alert(
-                        "You must confirm that you are 18 years or older."
+                        "Please confirm that you are 18 years or older."
                     );
 
                     ageConfirm.focus();
@@ -1364,7 +1221,7 @@
                 }
 
 
-                /* DATE/TIME */
+                /* DATES */
 
                 if (
                     !pickupDate.value ||
@@ -1444,55 +1301,56 @@
                 }
 
 
+                /* CUSTOMER DATA */
+
+                const customerData = savedCustomer || {};
+
+                localStorage.setItem(
+                    "customerData",
+                    JSON.stringify(customerData)
+                );
+
+
                 /* BOOKING DATA */
 
                 const bookingData = {
 
-                    vehicle:
-                        vehicle.value,
+                    name: customerData.name || "Customer",
 
-                    pickupLocation:
-                        pickupLocation.value,
+                    mobile: customerData.mobile || "",
 
-                    rentalType:
-                        rentalType.value,
+                    email: customerData.email || "",
 
-                    pickupDate:
-                        pickupDate.value,
+                    drivingLicense: enteredDrivingLicense,
 
-                    pickupTime:
-                        pickupTime.value,
+                    vehicle: vehicle.value,
 
-                    returnDate:
-                        returnDate.value,
+                    pickupLocation: pickupLocation.value,
 
-                    returnTime:
-                        returnTime.value,
+                    rentalType: rentalType.value,
 
-                    drivingLicence:
-                        drivingLicence.value,
+                    pickupDate: pickupDate.value,
 
-                    ageConfirmed:
-                        true,
+                    pickupTime: pickupTime.value,
 
-                    totalRent:
-                        amount,
+                    returnDate: returnDate.value,
 
-                    bookingStatus:
-                        "Confirmed"
+                    returnTime: returnTime.value,
+
+                    totalRent: amount,
+
+                    bookingStatus: "Confirmed"
 
                 };
 
 
                 localStorage.setItem(
                     "bookingData",
-                    JSON.stringify(
-                        bookingData
-                    )
+                    JSON.stringify(bookingData)
                 );
 
 
-                /* PAYMENT */
+                /* PAYMENT DATA */
 
                 localStorage.setItem(
                     "paymentMethod",
@@ -1514,7 +1372,7 @@
         );
 
 
-        /* INITIAL */
+        /* INITIAL CALCULATION */
 
         calculateRent();
 
