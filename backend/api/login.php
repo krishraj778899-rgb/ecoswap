@@ -15,8 +15,9 @@ try {
     start_app_session();
     session_regenerate_id(true);
     $_SESSION['user_id'] = (int)$user['id'];
+    $token = create_auth_token((int)$user['id']);
     unset($user['password']);
-    json_response(true, 'Login successful.', ['user' => $user]);
+    json_response(true, 'Login successful.', ['user' => $user, 'auth_token' => $token]);
 } catch (Throwable $e) {
     error_log('login.php: ' . $e->getMessage());
     json_response(false, 'Login failed. Please check the database connection.', [], 500);
