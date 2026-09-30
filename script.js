@@ -645,7 +645,9 @@ function displayItems(items) {
     container.innerHTML = items.map(item => {
 
         const imageUrl = item.image
-            ? `${API_BASE.replace("api/", "")}${item.image.replace("../", "")}`
+            ? (item.image.startsWith("data:")
+                ? item.image
+                : `${API_BASE.replace("api/", "")}${item.image.replace("../", "")}`)
             : "";
 
 
@@ -670,6 +672,8 @@ function displayItems(items) {
         const safeOwner = escapeHTML(
             item.owner_name || "EcoSwap User"
         );
+
+        const safeLocation = escapeHTML(item.location || "Location not provided");
 
 
         const favoriteKey =
@@ -734,6 +738,9 @@ function displayItems(items) {
                         <span class="condition">
                             ${safeCondition}
                         </span>
+                        <span class="item-location">
+                            <i class="fas fa-location-dot"></i> ${safeLocation}
+                        </span>
                     </div>
 
 
@@ -743,7 +750,14 @@ function displayItems(items) {
                             class="view-item-btn"
                             onclick="viewItem(${item.id})"
                         >
-                            View Item
+                            <i class="fas fa-eye"></i> View Item
+                        </button>
+
+                        <button
+                            class="swap-chat-btn"
+                            onclick="requestSwap(${item.id})"
+                        >
+                            <i class="fas fa-comments"></i> Request Swap & Chat
                         </button>
 
                     </div>
@@ -935,9 +949,14 @@ function showItemDetails(item) {
         "EcoSwap User"
     );
 
+    const safeLocation = escapeHTML(item.location || "Not provided");
+    const safePhone = escapeHTML(item.phone || "Not provided");
+
 
     const imageUrl = item.image
-        ? `${API_BASE.replace("api/", "")}${item.image.replace("../", "")}`
+        ? (item.image.startsWith("data:")
+            ? item.image
+            : `${API_BASE.replace("api/", "")}${item.image.replace("../", "")}`)
         : "";
 
 
@@ -995,12 +1014,22 @@ function showItemDetails(item) {
                         ${safeOwner}
                     </p>
 
+                    <p>
+                        <strong>Location:</strong>
+                        <i class="fas fa-location-dot"></i> ${safeLocation}
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        <a href="tel:${safePhone.replace(/[^0-9+]/g, '')}">${safePhone}</a>
+                    </p>
+
                     <button
                         class="modal-submit"
                         onclick="requestSwap(${item.id})"
                     >
-                        <i class="fas fa-exchange-alt"></i>
-                        Request Swap
+                        <i class="fas fa-comments"></i>
+                        Request Swap & Chat
                     </button>
 
                 </div>
@@ -1167,93 +1196,39 @@ async function handleAddItem(event) {
 
 async function requestSwap(itemId) {
 
-    const userData =
-        localStorage.getItem("ecoswapUser");
-
+    const userData = localStorage.getItem("ecoswapUser");
 
     if (!userData) {
-
-        showToast(
-            "Please login before requesting a swap.",
-            "error"
-        );
-
+        showToast("Please login before requesting a swap.", "error");
         closeModal("itemDetailsModal");
         openModal("loginModal");
-
-        return;
-
-    }
-
-
-    const message =
-        prompt(
-            "Enter a message for the item owner (optional):"
-        );
-
-
-    if (message === null) {
         return;
     }
-
 
     try {
-
-        const response = await fetch(
-            `${API_BASE}swap-request.php`,
-            {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    item_id: Number(itemId),
-                    message: message.trim()
-                })
-            }
-        );
-
+        const response = await fetch(`${API_BASE}swap-request.php`, {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                item_id: Number(itemId),
+                message: "Hi! I would like to discuss a swap for this item."
+            })
+        });
 
         const data = await response.json();
-
-
         if (!response.ok || !data.success) {
-
-            throw new Error(
-                data.message ||
-                "Unable to send swap request."
-            );
-
+            throw new Error(data.message || "Unable to open swap chat.");
         }
 
-
         closeModal("itemDetailsModal");
-
-
-        showToast(
-            "Swap request sent successfully!",
-            "success"
-        );
-
-
+        window.location.href = `chat.html?conversation_id=${encodeURIComponent(data.conversation_id)}`;
     } catch (error) {
-
-        console.error(
-            "Swap Request Error:",
-            error
-        );
-
-
-        showToast(
-            error.message ||
-            "Unable to send swap request.",
-            "error"
-        );
-
+        console.error("Swap Chat Error:", error);
+        showToast(error.message || "Unable to open swap chat.", "error");
     }
-
 }
+
 
 
 /* =========================================================

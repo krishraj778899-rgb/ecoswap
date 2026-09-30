@@ -911,6 +911,27 @@ section {
     background: var(--primary);
 }
 
+.swap-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 11px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.swap-chat-btn:hover {
+    background: var(--dark);
+    transform: translateY(-1px);
+}
+
 .view-all-container {
     margin-top: 45px;
 
@@ -2257,4 +2278,15 @@ section {
         font-size: 22px;
     }
 
+}
+
+/* EcoSwap contact and chat enhancements */
+.item-info { flex-wrap: wrap; gap: 8px 12px; }
+.item-location { color: #4f6b5b; font-size: .9rem; }
+.item-location i { color: #00a94f; }
+.nav-chat-link { display: inline-flex; align-items: center; gap: 7px; }
+.item-details-content a { color: #009b49; font-weight: 700; text-decoration: none; }
+.item-details-content a:hover { text-decoration: underline; }
+@media (max-width: 768px) {
+  .nav-chat-link { width: 100%; }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoSwap - Swap Chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="chat.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i><span>Eco<span>Swap</span></span></a>
+    <a href="index.html#browse" class="chat-back">← Browse Items</a>
+  </div>
+</header>
+<main class="chat-page container">
+  <section class="chat-layout">
+    <aside class="chat-sidebar">
+      <div class="chat-sidebar-head">
+        <div><span class="section-tag">Messages</span><h1>Swap Chats</h1></div>
+        <button id="refreshChats" class="icon-button" aria-label="Refresh chats">↻</button>
+      </div>
+      <div id="conversationList" class="conversation-list"><div class="chat-empty">Loading chats…</div></div>
+    </aside>
+
+    <section class="chat-panel">
+      <div id="chatHeader" class="chat-header">
+        <div class="chat-header-placeholder"><i class="fa-solid fa-comments"></i><div><strong>Select a chat</strong><small>Request a swap to start discussing the item and price.</small></div></div>
+      </div>
+      <div id="messageList" class="message-list"><div class="chat-empty">Choose a conversation from the left.</div></div>
+      <form id="messageForm" class="message-form" autocomplete="off">
+        <input type="text" id="messageInput" maxlength="2000" placeholder="Write a message…" disabled>
+        <input type="number" id="offerPrice" min="0" step="0.01" placeholder="Offer ₹" disabled>
+        <button type="submit" id="sendButton" disabled>Send</button>
+      </form>
+    </section>
+  </section>
+</main>
+<div id="toast" class="toast"><span id="toastMessage">Success</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>

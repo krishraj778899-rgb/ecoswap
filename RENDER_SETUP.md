@@ -1,17 +1,26 @@
 # EcoSwap - Render + Neon setup
 
-1. Render Web Service Runtime: Docker.
-2. Keep Build Command and Start Command empty.
-3. Add:
-   - `DATABASE_URL` = Neon PostgreSQL connection string from Neon Connect.
-4. Deploy.
+1. Set the Render service Runtime to **Docker**.
+2. Keep Build Command and Start Command empty so the Dockerfile controls the build/start.
+3. Add this environment variable:
 
-The PHP backend automatically creates the required PostgreSQL tables on first database connection, so running `database.sql` manually is optional for a fresh database.
+   `DATABASE_URL=<Neon PostgreSQL connection string>`
 
-Tables:
-- `users` — registration/login accounts
-- `items` — listed items and image filename/path
-- `swap_requests` — swap requests and their status
+4. Deploy the project.
+5. The PHP backend automatically creates/migrates these PostgreSQL tables on the first request:
+   - users
+   - items
+   - swap_requests
+   - conversations
+   - messages
 
-Important:
-- Uploaded images are stored in `/backend/uploads/` inside the container. For durable production image storage, use a persistent disk or object storage; database rows store the image filename/path.
+## Main flows
+
+- Register/Login -> `users`
+- List Item -> `items` (including phone, location, image_data and image_mime)
+- Browse -> `items`
+- Request Swap -> `swap_requests` + `conversations`
+- Chat -> `messages`
+- Offer price -> `messages.offer_price`
+
+Images are stored directly in Neon PostgreSQL as `BYTEA` in `items.image_data`, with MIME type in `items.image_mime`.
