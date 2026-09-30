@@ -7,6 +7,8 @@ RUN apt-get update \
 
 WORKDIR /app
 
+COPY php.ini /usr/local/etc/php/conf.d/ecoswap.ini
+
 COPY . /app
 
 RUN mkdir -p /app/backend/uploads

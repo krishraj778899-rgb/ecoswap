@@ -1,0 +1,10 @@
+RENDER DEPLOY
+1. Put ALL files in the repository ROOT (do not keep the EcoSwap folder as an extra parent folder).
+2. Render: Docker Web Service.
+3. Dockerfile Path: Dockerfile
+4. Environment variable: DATABASE_URL = full Neon PostgreSQL connection string from Neon -> Connect.
+5. Deploy latest commit.
+6. Test:
+   /health.php
+   /backend/api/health.php
+Both must return JSON with success:true when DATABASE_URL is correct.
